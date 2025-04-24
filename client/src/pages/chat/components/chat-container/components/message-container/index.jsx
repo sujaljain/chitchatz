@@ -85,7 +85,7 @@ const MessageContainer = () => {
     setFileDownloadProgress(0);
 
     try {
-      // ✅ Fetch the file as binary data (Blob)
+      //  Fetch the file as binary data (Blob)
       const response = await apiClient.get(`${HOST}/${url}`, {
         responseType: "blob", // BLOB means --> Binary Large Object
         onDownloadProgress: (progressEvent) => {
@@ -95,18 +95,18 @@ const MessageContainer = () => {
         },
       });
 
-      // ✅ Create a temporary URL for the Blob data
+      //  Create a temporary URL for the Blob data
       const urlBlob = window.URL.createObjectURL(new Blob([response.data]));
 
-      // ✅ Create a hidden <a> tag for downloading
+      //  Create a hidden <a> tag for downloading
       const link = document.createElement("a");
       link.href = urlBlob;
       link.setAttribute("download", url.split("/").pop()); // Extracts filename
 
-      // ✅ Simulate a click to trigger the download
+      //  Simulate a click to trigger the download
       link.click();
 
-      // ✅ Cleanup: Remove link & free memory
+      //  Cleanup: Remove link & free memory
       link.remove();
       window.URL.revokeObjectURL(urlBlob);
     } catch (error) {
@@ -196,7 +196,7 @@ const MessageContainer = () => {
       )}
 
       <div className="text-xs text-gray-600">
-        {moment(message.timestamp).format("LT")}
+        {moment(message.timeStamp).format("LT")}
       </div>
     </div>
   );
@@ -283,12 +283,12 @@ const MessageContainer = () => {
             </Avatar>
             <span className="text-sm text-white/60">{`${message.sender.firstName} ${message.sender.lastName}`}</span>
             <span className="text-xs text-white/60">
-              {moment(message.timestamp).format("LT")}
+              {moment(message.timeStamp).format("LT")}
             </span>
           </div>
         ) : (
           <div className="text-xs text-white/60 mt-1">
-            {moment(message.timestamp).format("LT")}
+            {moment(message.timeStamp).format("LT")}
           </div>
         )}
       </div>
@@ -316,7 +316,7 @@ const MessageContainer = () => {
             <button
               className="bg-black/20 p-3 text-2xl rounded-full hover:bg-black/50 cursor-pointer transition-all duration-300"
               onClick={() => {
-                // console.log("Clicked Download. File URL:", imageURL); // ✅ Check if this prints
+                // console.log("Clicked Download. File URL:", imageURL); //  Check if this prints
                 downloadFile(imageURL);
               }}
             >

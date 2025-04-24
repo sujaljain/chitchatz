@@ -13,52 +13,52 @@ const setupSocket = (server) => {
 
     const userSocketMap = new Map();
 
-    // ✅ Handles sending messages
+    //  Handles sending messages
     const sendMessage = async (message) => {
         try {
             if (!message.sender || !message.recipient || (!message.content && !message.fileUrl)) {
-                console.error("⚠️ Invalid message data:", message);
+                console.error("Invalid message data:", message);
                 return;
             }
 
-            console.log("📩 Message received on server:", message);
+            console.log("Message received on server:", message);
 
-            // ✅ Get sender & recipient socket IDs from the map
+            //  Get sender & recipient socket IDs from the map
             const senderSocketId = userSocketMap.get(message.sender);
             const recipientSocketId = userSocketMap.get(message.recipient);
 
-            // ✅ Save the message in the database
+            //  Save the message in the database
             const createdMessage = await Message.create(message);
 
-            // ✅ Fetch the message again & populate sender and recipient details
+            //  Fetch the message again & populate sender and recipient details
             const messageData = await Message.findById(createdMessage._id)
                 .populate("sender", "id email firstName lastName image color")
                 .populate("recipient", "id email firstName lastName image color");
 
-            console.log("✅ Message saved & populated:", messageData);
+            console.log("Message saved & populated:", messageData);
 
-            // ✅ Send message to the recipient (if online & for UI update)
+            //  Send message to the recipient (if online & for UI update)
             if (recipientSocketId) {
                 io.to(recipientSocketId).emit("receiveMessage", messageData);
-                console.log("📩 Sent message to recipient:", recipientSocketId);
+                console.log("Sent message to recipient:", recipientSocketId);
             } else {
-                console.log("⚠️ Recipient is offline. Message stored in DB.");
+                console.log("Recipient is offline. Message stored in DB.");
             }
 
-            // ✅ Send message back to the sender (for UI update)
+            //  Send message back to the sender (for UI update)
             if (senderSocketId) {
                 io.to(senderSocketId).emit("receiveMessage", messageData);
-                console.log("📩 Sent message back to sender:", senderSocketId);
+                console.log("Sent message back to sender:", senderSocketId);
             }
         } catch (error) {
-            console.error("❌ Error in sendMessage:", error);
+            console.error("Error in sendMessage:", error);
         }
     };
 
 
-    // ✅ Handles user disconnection properly
+    //  Handles user disconnection properly
     const handleDisconnect = (socket) => {
-        console.log(`❌ Client Disconnected: ${socket.id}`);
+        console.log(`Client Disconnected: ${socket.id}`);
         for (const [userId, socketId] of userSocketMap.entries()) {
             if (socketId === socket.id) {
                 userSocketMap.delete(userId);
@@ -111,17 +111,17 @@ const setupSocket = (server) => {
 
         if (userId) {
             userSocketMap.set(userId, socket.id);
-            console.log(`✅ User ${userId} connected with Socket ID: ${socket.id}`);
+            console.log(` User ${userId} connected with Socket ID: ${socket.id}`);
         } else {
-            console.log("⚠️ User ID not provided during connection");
+            console.log("User ID not provided during connection");
         }
 
-        // ✅ Listen for messages
+        //  Listen for messages
         socket.on("sendMessage", sendMessage);
 
         socket.on("send-channel-message", sendChannelMessage);
 
-        // ✅ Handle disconnection correctly
+        //  Handle disconnection correctly
         socket.on("disconnect", () => handleDisconnect(socket));
     });
 };

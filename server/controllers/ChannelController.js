@@ -36,7 +36,7 @@ export const createChannel = async (request, response, next) => {
 
 export const getUserChannels = async (request, response, next) => {
     try {
-        // ✅ Ensure 'userId' is correctly retrieved
+        //  Ensure 'userId' is correctly retrieved
         const userId = new mongoose.Types.ObjectId(request.userId);
 
         const channels = await Channel.find({

@@ -38,7 +38,7 @@ const NewDM = () => {
   const searchContacts = async (searchTerm) => {
     try {
       if (searchTerm.trim().length === 0) {
-        setSearchedContacts([]); // ✅ Clears search results when input is empty
+        setSearchedContacts([]); //  Clears search results when input is empty
         return;
       }
 
@@ -51,7 +51,7 @@ const NewDM = () => {
       if (response.status === 200 && response.data.contacts) {
         setSearchedContacts(response.data.contacts);
       } else {
-        setSearchedContacts([]); // ✅ Ensures empty results when no contacts match
+        setSearchedContacts([]); //  Ensures empty results when no contacts match
       }
     } catch (error) {
       console.log({ error });
@@ -80,7 +80,7 @@ const NewDM = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <Dialog open={openNewContactModal} onOpenChange={openNewContactModal}>
+      <Dialog open={openNewContactModal} onOpenChange={setOpenNewContactModal}>
         <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[400px] flex flex-col">
           <DialogHeader>
             <DialogTitle>Please select a contact</DialogTitle>

@@ -26,7 +26,7 @@ export const createChatSlice = (set, get) => ({
 
     addChannel: (channel) => {
         const channels = get().channels;
-        set({ channels: [channel, ...channels] }); // ✅ Add new channel at the beginning
+        set({ channels: [channel, ...channels] }); //  Add new channel at the beginning
     },
 
     closeChat: () =>

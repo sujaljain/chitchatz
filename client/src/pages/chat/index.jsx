@@ -19,11 +19,11 @@ const Chat = () => {
 
   useEffect(() => {
     if (userInfo?.profileSetup === false) {
-      // ✅ Prevents crashes if `userInfo` is null
+      //  Prevents crashes if `userInfo` is null
       toast("Please setup your profile to continue");
       navigate("/profile");
     }
-  }, [userInfo?.profileSetup, navigate]); // ✅ More accurate dependency tracking
+  }, [userInfo?.profileSetup, navigate]); //  More accurate dependency tracking
 
   return (
     <div className="flex h-[100vh] text-white overflow-hidden">

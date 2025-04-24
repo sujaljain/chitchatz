@@ -9,7 +9,7 @@ import { IoSend } from "react-icons/io5";
 import { RiEmojiStickerLine } from "react-icons/ri";
 
 const MessageBar = () => {
-  const emojiRef = useRef(null); // useRef() to Manipulate the DOM // ✅ Stores reference to the emoji picker div
+  const emojiRef = useRef(null); // useRef() to Manipulate the DOM //  Stores reference to the emoji picker div
   const fileInputRef = useRef();
   const socket = useSocket();
   const {
@@ -29,15 +29,15 @@ const MessageBar = () => {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside); // ✅ This line listens for any mouse click anywhere on the document (webpage). 👉 When a user clicks anywhere, it calls the handleClickOutside function to check
+    document.addEventListener("mousedown", handleClickOutside); //  This line listens for any mouse click anywhere on the document (webpage). 👉 When a user clicks anywhere, it calls the handleClickOutside function to check
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); // ✅ This removes the event listener when the component unmounts or when useEffect runs again. 👉 If we don’t remove it, multiple event listeners keep stacking up, causing performance issues.
+      document.removeEventListener("mousedown", handleClickOutside); //  This removes the event listener when the component unmounts or when useEffect runs again. 👉 If we don’t remove it, multiple event listeners keep stacking up, causing performance issues.
     };
   }, []);
 
   const handleEmoji = (emoji) => {
-    setMessage((msg) => msg + emoji.emoji); // ✅ Appends emoji to the message
+    setMessage((msg) => msg + emoji.emoji); //  Appends emoji to the message
   };
 
   const handleSendMessage = async () => {
@@ -121,6 +121,12 @@ const MessageBar = () => {
           placeholder="Enter Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault(); // Prevents adding a new line
+              handleSendMessage(); // Calls the send message function
+            }
+          }}
         />
         <button
           className="text-neutral-500 focus:border-none focus:outline-none focus:text-white duration-300 transition-all"

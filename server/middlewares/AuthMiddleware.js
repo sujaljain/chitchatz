@@ -1,7 +1,7 @@
 /**
  1️⃣ What is Middleware?
- ✅ Middleware functions in Express.js are functions that execute before reaching the final request handler.
- ✅ They have access to the request (req), response (res), and next function (next()).
+  Middleware functions in Express.js are functions that execute before reaching the final request handler.
+  They have access to the request (req), response (res), and next function (next()).
  
  📌 Think of middleware as a security checkpoint at an airport:
  

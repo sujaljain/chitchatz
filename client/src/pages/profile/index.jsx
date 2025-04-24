@@ -34,7 +34,7 @@ const Profile = () => {
     }
     if (userInfo.image) {
       setImage(`${HOST}/${userInfo.image}`);
-      // ✅ Even though you didn’t define an API route, the image is being served because of static file serving in Express (express.static()).
+      //  Even though you didn’t define an API route, the image is being served because of static file serving in Express (express.static()).
     }
   }, [userInfo]);
 

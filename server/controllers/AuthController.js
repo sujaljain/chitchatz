@@ -145,8 +145,8 @@ export const addProfileImage = async (request, response, next) => {
             request.userId,
             { image: fileName },
             { new: true, runValidators: true }
-            // ✅ { new: true } forces Mongoose to return the UPDATED document instead.
-            // ✅ { runValidators: true } forces Mongoose to validate the new data before saving it.
+            //  { new: true } forces Mongoose to return the UPDATED document instead.
+            //  { runValidators: true } forces Mongoose to validate the new data before saving it.
         );
 
         return response.status(200).json({

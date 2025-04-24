@@ -9,8 +9,8 @@ import { apiClient } from "./lib/api-client";
 import { GET_USER_INFO } from "./utils/constants";
 
 /*
-✅ children is a special prop in React that represents any JSX elements passed inside a component.
-✅ It does NOT need to be imported from React—it’s automatically available in functional components.
+ children is a special prop in React that represents any JSX elements passed inside a component.
+ It does NOT need to be imported from React—it’s automatically available in functional components.
  */
 
 const PrivateRoute = ({ children }) => {

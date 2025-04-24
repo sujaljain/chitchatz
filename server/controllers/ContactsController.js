@@ -11,17 +11,17 @@ export const searchContacts = async (request, response, next) => {
         }
 
         const regex = new RegExp(searchTerm.trim(), "i"); // This "i" makes it case-insensitive
-        // ✅ Regular Expressions (RegEx) are patterns used to match text. They help search for words inside a string. MongoDB supports regex for searching in the database.
+        //  Regular Expressions (RegEx) are patterns used to match text. They help search for words inside a string. MongoDB supports regex for searching in the database.
 
 
         const contacts = await User.find({
-            $and: [ // ✅ Both conditions must be true
+            $and: [ //  Both conditions must be true
                 // Condition 1
-                { _id: { $ne: request.userId } }, // ✅ $ne --> (Not Equals To), therefore exclude the logged-in user
+                { _id: { $ne: request.userId } }, //  $ne --> (Not Equals To), therefore exclude the logged-in user
 
                 // Condition 2
                 {
-                    $or: [ // ✅ At least one condition must be true 
+                    $or: [ //  At least one condition must be true 
                         { firstName: { $regex: regex } },
                         { lastName: { $regex: regex } },
                         { email: { $regex: regex } }
@@ -44,12 +44,12 @@ export const searchContacts = async (request, response, next) => {
 
 export const getContactsForDMList = async (request, response, next) => {
     try {
-        let { userId } = request; // ✅ Extract userId from request body
+        let { userId } = request; //  Extract userId from request body
         if (!userId) {
             return response.status(400).send("User ID is required");
         }
 
-        userId = new mongoose.Types.ObjectId(userId); // ✅ Convert to ObjectId
+        userId = new mongoose.Types.ObjectId(userId); //  Convert to ObjectId
 
         const contacts = await Message.aggregate([
             {
@@ -64,7 +64,7 @@ export const getContactsForDMList = async (request, response, next) => {
                 $group: {
                     _id: {
                         $cond: {
-                            if: { $eq: ["$sender", userId] }, // ✅ Fixed `$eq`
+                            if: { $eq: ["$sender", userId] }, //  Fixed `$eq`
                             then: "$recipient",
                             else: "$sender",
                         },

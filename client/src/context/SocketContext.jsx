@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
   const socket = useRef(null);
   const { userInfo } = useAppStore();
 
-  // ✅ Message Receiving Handler (Move this outside useEffect!)
+  //  Message Receiving Handler (Move this outside useEffect!)
   const handleRecieveMessage = (message) => {
     const { selectedChatData, selectedChatType, addMessage, addContactsInDMContacts } =
       useAppStore.getState();
@@ -56,19 +56,19 @@ export const SocketProvider = ({ children }) => {
       });
 
       socket.current.on("connect", () => {
-        console.log("✅ Connected to the socket server!");
+        console.log(" Connected to the socket server!");
       });
 
       socket.current.on("receiveMessage", handleRecieveMessage);
       socket.current.on("recieve-channel-message", handleRecieveChannelMessage);
     }
 
-    // ✅ Cleanup: Remove event listeners to prevent duplicate execution
+    //  Cleanup: Remove event listeners to prevent duplicate execution
     return () => {
       if (socket.current) {
-        socket.current.off("receiveMessage", handleRecieveMessage); // ✅ Fix duplicate listeners
+        socket.current.off("receiveMessage", handleRecieveMessage); //  Fix duplicate listeners
         socket.current.disconnect();
-        console.log("⚠️ Disconnected from socket server.");
+        console.log("Disconnected from socket server.");
       }
     };
   }, [userInfo]);
