@@ -38,21 +38,6 @@ These features are designed to make the app stand out while keeping the implemen
 - **MongoDB**: For database storage.
 - **Socket.IO**: For real-time communication.
 
-## Folder Structure
-
-```
-ChitChatz - A Realtime Chat Application/
-├── client/       # Frontend code
-├── server/       # Backend code
-└── README.md     # Project documentation
-```
-
-## Prerequisites
-
-- **Node.js**: v16 or higher
-- **MongoDB**: Installed and running
-- **npm**: v8 or higher
-
 ## API Endpoints
 
 ### Authentication
